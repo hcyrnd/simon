@@ -34,15 +34,13 @@ def bytes2human(n):
     # '9.8K'
     # >>> bytes2human(100001221)
     # '95.4M'
-    symbols = (' KB', ' MB', ' GB', ' TB', ' PB', ' EB', ' ZB', ' YB')
-    prefix = {}
-    for i, s in enumerate(symbols):
-        prefix[s] = 1 << (i + 1) * 10
+    symbols = 'KMGTPEZY'
+    prefix = {s: 1 << (i + 1) * 10 for i, s in enumerate(symbols)}
     for s in reversed(symbols):
         if n >= prefix[s]:
             value = float(n) / prefix[s]
-            return '%.1f%s' % (value, s)
-    return "%sB" % n
+            return '%.1f %sB' % (value, s)
+    return "%s B" % n
 
 
 class Simon(NSApplication):
